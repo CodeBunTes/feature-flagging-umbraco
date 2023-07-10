@@ -10,6 +10,7 @@ public class FeatureFlaggedConfiguration
     public FeatureFlaggedConfiguration()
     {
         Requirement = RequirementType.All;
+		Negate = false;
         Features = new List<string>();
     }
 
@@ -19,7 +20,13 @@ public class FeatureFlaggedConfiguration
        Description = "Controls whether 'All' or 'Any' feature in a list of features should be enabled to render the editor")]
     public RequirementType Requirement { get; set; }
 
-    [ConfigurationField(key: nameof(Features),
+	[ConfigurationField(key: nameof(Negate),
+	  name: "Negate",
+	  view: "boolean",
+	  Description = "Reverse the feature flag impact (implies Nor, Nand)")]
+	public bool Negate { get; set; }
+
+	[ConfigurationField(key: nameof(Features),
       name: nameof(Features),
       view: "checkboxlist",
       Description = "Features which control if this editor should be rendered")]

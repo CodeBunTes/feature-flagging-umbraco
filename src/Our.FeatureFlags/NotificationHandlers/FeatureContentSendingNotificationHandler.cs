@@ -43,9 +43,9 @@ public class FeatureContentSendingNotificationHandler : INotificationAsyncHandle
 
                         var enabled = config.Requirement switch
                         {
-                            RequirementType.Any => enabledFeatures.ContainsAny(config.Features),
-                            RequirementType.All => enabledFeatures.ContainsAll(config.Features),
-                            _ => false,
+							RequirementType.Any => config.Negate ? !enabledFeatures.ContainsAny(config.Features) : enabledFeatures.ContainsAny(config.Features),
+							RequirementType.All => config.Negate ? !enabledFeatures.ContainsAll(config.Features) : enabledFeatures.ContainsAll(config.Features),
+							_ => false,
                         };
 
                         if (enabled == false)

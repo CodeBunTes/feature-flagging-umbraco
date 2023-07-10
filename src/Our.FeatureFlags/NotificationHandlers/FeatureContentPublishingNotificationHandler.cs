@@ -43,8 +43,8 @@ public class FeatureContentPublishingNotificationHandler : INotificationAsyncHan
 
                 var enabled = config?.Requirement switch
                 {
-                    RequirementType.Any => enabledFeatures.ContainsAny(config.Features),
-                    RequirementType.All => enabledFeatures.ContainsAll(config.Features),
+                    RequirementType.Any => config.Negate ? !enabledFeatures.ContainsAny(config.Features) : enabledFeatures.ContainsAny(config.Features),
+                    RequirementType.All => config.Negate ? !enabledFeatures.ContainsAll(config.Features) : enabledFeatures.ContainsAll(config.Features),
                     _ => throw new InvalidOperationException($"Configured requirement for property ({prop.PropertyType.Alias}) had no matching {nameof(RequirementType)} "),
                 };
 
